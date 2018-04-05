@@ -1,0 +1,119 @@
+{
+	"_version": "1.7.0",
+	"sap.app": {
+		"id": "smax.batch30.A3Z30SPLITAPP01",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"sourceTemplate": {
+			"id": "servicecatalog.connectivityComponent",
+			"version": "0.0.0"
+		},
+		"dataSources": {
+			"ZGW_BATCH30_PRODUCT_SRV": {
+				"uri": "/sap/opu/odata/sap/ZGW_BATCH30_PRODUCT_SRV/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/metadata.xml"
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": ["sap_hcb", "sap_belize"]
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "smax.batch30.A3Z30SPLITAPP01.view.SplitApp2",
+			"type": "XML"
+		},
+		"dependencies": {
+			"minUI5Version": "1.30.0",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.ui.layout": {},
+				"sap.ushell": {},
+				"sap.collaboration": {},
+				"sap.ui.comp": {},
+				"sap.uxap": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request"
+				},
+				"dataSource": "ZGW_BATCH30_PRODUCT_SRV",
+				"preload": true
+			}
+		},
+		"resources": {
+			"css": [{
+				"uri": "css/style.css"
+			}]
+		},
+		"routing": {
+			"config": {
+				"viewPath": "smax.batch30.A3Z30SPLITAPP01.view",
+				"controlId": "idSplitApp",
+				"routerClass": "sap.m.routing.Router"
+			},
+			"targets": {
+				"mPage": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "ProductList",
+					"controlAggregation": "masterPages"
+				},
+				"dPage": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "ProductDetail",
+					"controlAggregation": "detailPages"
+				}
+			},
+			"routes": [{
+				"name": "mPage",
+				"pattern": "",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["mPage", "dPage"]
+			}, {
+				"name": "detail",
+				"pattern": "toDetail/{pid}",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["dPage", "mPage"]
+			}]
+		}
+	}
+}
